@@ -92,7 +92,7 @@ const Contacts = () => {
                 border: "1px solid white",
                 boxShadow: "0px 0px 2px 0px gray",
                 backgroundColor: "white",
-                marginX: { xs: 1, sm: 0 },
+                marginX: { xs: 1, sm: 1 },
               }}
             >
               <Box
@@ -135,33 +135,43 @@ const Contacts = () => {
               sm={5.9}
               xs={12}
               sx={{
-                padding: 5,
+                // padding: 4,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
                 border: "1px solid white",
                 boxShadow: "0px 0px 2px 0px gray",
                 backgroundColor: "white",
+                // backgroundColor: "red",
                 marginX: { xs: 1, sm: 0 },
               }}
             >
               <Box
                 sx={{
-                  color: "gray",
-                  display: "flex",
-                  justifyContent: "space-between",
+                  paddingY: { lg: 0, xs: "30px" },
                 }}
               >
-                <Typography sx={{ fontWeight: "bold" }}>Email:</Typography>
-                <Typography>stupe200@gmail.com</Typography>
-              </Box>
-              <Box
-                sx={{
-                  color: "gray",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  paddingY: 1,
-                }}
-              >
-                <Typography sx={{ fontWeight: "bold" }}>Mobile:</Typography>
-                <Typography>+91 7498187088</Typography>
+                <Box
+                  sx={{
+                    color: "gray",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography sx={{ fontWeight: "bold" }}>Email: </Typography>
+                  <Typography>stupe200@gmail.com</Typography>
+                </Box>
+                <Box
+                  sx={{
+                    color: "gray",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    paddingY: 1,
+                  }}
+                >
+                  <Typography sx={{ fontWeight: "bold" }}>Mobile:</Typography>
+                  <Typography>+91 7498187088</Typography>
+                </Box>
               </Box>
             </Grid>
             <Grid

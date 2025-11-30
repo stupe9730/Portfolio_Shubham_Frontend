@@ -20,6 +20,7 @@ import {
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GetAppIcon from "@mui/icons-material/GetApp";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import {
   Brightness1,
   Close,
@@ -58,6 +59,7 @@ import Contacts from "./Contacts";
 import Admin from "./Admin";
 import { useGetProjectQuery } from "./redux/projectApi";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import Loading from "./Loading";
 
 const Home = () => {
   const [redmore, setRedmore] = useState();
@@ -83,7 +85,7 @@ const Home = () => {
   const toggleDrawer = (open) => () => {
     setIsOpen(open);
   };
-  const { data: productData, isSuccess } = useGetProjectQuery();
+  const { data: productData, isSuccess, isLoading } = useGetProjectQuery();
 
   const [open, setOpen] = useState(false);
   //   const handleOpen = () => setOpen(true);
@@ -97,7 +99,10 @@ const Home = () => {
     if (isSuccess) {
       setProjectState(productData);
     }
-  }, [isSuccess]);
+    // if (isLoading) {
+    //   <Loading />;
+    // }
+  }, [isSuccess, isLoading]);
 
   console.log(currentPage);
   return (
@@ -494,7 +499,6 @@ const Home = () => {
                     <CheckIcon
                       sx={{
                         color: "orange",
-                        fontSize: "clamp(12px, 2vw, 16px)",
                       }}
                     />
                     <Typography>HTML, CSS, JavaScript</Typography>
@@ -684,10 +688,12 @@ const Home = () => {
                   >
                     <Box
                       sx={{
-                        backgroundImage: `url(${bgImage})`,
-                        height: { sm: "100%", xs: "80%" },
+                        // backgroundImage: `url(${bgImage})`,
+                        backgroundImage: `url(${"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsdV3gay6lVBU2XvR5OJpiGvZBqgF57-2e9Q&s"})`,
+                        height: { sm: "100%", xs: "100%" },
                         width: { sm: "100%", xs: "100%" },
                         borderColor: "",
+                        // opacity: "0.2",
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                         position: "relative",
@@ -779,117 +785,184 @@ const Home = () => {
                   >
                     My Projects
                   </Typography>
-                  <Grid
-                    container
-                    columnSpacing={2}
-                    sx={{ paddingX: { md: 0, sm: 4, xs: 2 } }}
-                  >
-                    {productData &&
-                      productData.map((item, index) => (
-                        <Grid
-                          item
-                          key={index}
-                          lg={4}
-                          md={6}
-                          sm={6}
-                          xs={12}
-                          marginTop={1}
-                        >
-                          <Card
-                            sx={{
-                              position: "relative",
-                              overflow: "hidden",
-                              transition: "transform 0.3s ease",
-                              "&:hover": { transform: "translateY(-5px)" },
-                            }}
+                  {productData ? (
+                    <Grid
+                      container
+                      columnSpacing={2}
+                      sx={{ paddingX: { md: 0, sm: 4, xs: 2 } }}
+                    >
+                      {productData &&
+                        productData.map((item, index) => (
+                          <Grid
+                            item
+                            key={index}
+                            lg={4}
+                            md={6}
+                            sm={6}
+                            xs={12}
+                            marginTop={1}
+                            // sx={{backgroundColor:"white"}}
                           >
-                            <Box sx={{ position: "relative" }}>
-                              <CardMedia
-                                component="img"
-                                sx={{ height: 200, objectFit: "cover" }}
-                                image={item.hero}
-                                title={item.name}
-                              />
-
-                              {/* Hover overlay */}
-                              <motion.div
-                                initial={{ opacity: 0, y: 40 }}
-                                whileHover={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
-                                style={{
-                                  position: "absolute",
-                                  top: 0,
-                                  left: 0,
-                                  width: "100%",
-                                  height: "100%",
-                                  background: "rgba(0, 0, 0, 0.6)",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <Box>
-                                  <Button
-                                    component="a"
-                                    target="_blank"
-                                    href={item.projectLink}
-                                    variant="contained"
-                                    sx={{
-                                      bgcolor: "#FF415B",
-                                      color: "white",
-                                      fontWeight: "bold",
-                                      borderRadius: "25px",
-                                      px: 3,
-                                      py: 1,
-                                      "&:hover": { bgcolor: "#ff6a7a" },
-                                    }}
-                                  >
-                                    Visit Website
-                                    <ChevronRightIcon
-                                      sx={{ ml: 1, color: "white" }}
-                                    />
-                                  </Button>
-                                  <Box
-                                    sx={{
-                                      bgColor: "red",
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <Button
-                                      onClick={(e) => {
-                                        setRedmore(item), setRedopen(true);
-                                      }}
-                                      size="small"
-                                      sx={{
-                                        textAlign: "center",
-                                        color: "white",
-                                        textTransform: "none",
-                                      }}
-                                    >
-                                      Read More <KeyboardDoubleArrowRight />
-                                    </Button>
-                                  </Box>
-                                </Box>
-                              </motion.div>
-                            </Box>
-
-                            <CardContent>
+                            {/* <Box>{item.name}</Box> */}
+                            <Card
+                              sx={{
+                                position: "relative",
+                                // backgroundColor: "transparant",
+                                overflow: "hidden",
+                                transition: "transform 0.3s ease",
+                                "&:hover": { transform: "translateY(-5px)" },
+                              }}
+                            >
                               <Typography
-                                variant="h6"
                                 sx={{
-                                  fontWeight: "bold",
-                                  // bgcolor: "lightblue",
-                                  // textAlign: "center",
-                                  // borderRadius: "20px",
-                                  paddingY: "1vh",
+                                  display: { sm: "none", xs: "block" },
+                                  backgroundColor: "none",
+                                  textAlign: "center",
+                                  fontSize: "7vw",
                                 }}
                               >
                                 {item.name}
                               </Typography>
+                              <Box sx={{ position: "relative" }}>
+                                <CardMedia
+                                  component="img"
+                                  sx={{ height: 200, objectFit: "cover" }}
+                                  image={item.hero}
+                                  title={item.name}
+                                />
 
-                              {/* <Typography
+                                {/* Hover overlay */}
+                                <motion.div
+                                  initial={{ opacity: 0, y: 40 }}
+                                  whileHover={{ opacity: 1, y: 0 }}
+                                  transition={{
+                                    duration: 0.4,
+                                    ease: "easeOut",
+                                  }}
+                                  style={{
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    width: "100%",
+                                    height: "100%",
+                                    background: "rgba(0, 0, 0, 0.6)",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                  }}
+                                  // sx={{ display: { xs: "none", sm: "block" } }}
+                                >
+                                  <Box sx={{}}>
+                                    <Button
+                                      component="a"
+                                      target="_blank"
+                                      href={item.projectLink}
+                                      variant="contained"
+                                      sx={{
+                                        bgcolor: "#FF415B",
+                                        color: "white",
+                                        fontWeight: "bold",
+                                        borderRadius: "25px",
+                                        px: 3,
+                                        py: 1,
+                                        "&:hover": { bgcolor: "#ff6a7a" },
+                                      }}
+                                    >
+                                      Visit Website
+                                      <ChevronRightIcon
+                                        sx={{ ml: 1, color: "white" }}
+                                      />
+                                    </Button>
+                                    <Box
+                                      sx={{
+                                        bgColor: "red",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                      }}
+                                    >
+                                      <Button
+                                        onClick={(e) => {
+                                          setRedmore(item), setRedopen(true);
+                                        }}
+                                        size="small"
+                                        sx={{
+                                          textAlign: "center",
+                                          color: "white",
+                                          textTransform: "none",
+                                        }}
+                                      >
+                                        Read More <KeyboardDoubleArrowRight />
+                                      </Button>
+                                    </Box>
+                                  </Box>
+                                </motion.div>
+                              </Box>
+
+                              <CardContent>
+                                <Typography
+                                  variant="h6"
+                                  sx={{
+                                    fontWeight: "bold",
+                                    // position: { xs: "absolute", sm: "static" },
+                                    bottom: 40,
+                                    // bgcolor: "lightblue",
+                                    // textAlign: "center",
+                                    // borderRadius: "20px",
+                                    paddingY: "1vh",
+                                    display: { sm: "block", xs: "none" },
+                                  }}
+                                >
+                                  {item.name}
+                                </Typography>
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    // width: "100px",
+                                    // background: "red",
+                                  }}
+                                >
+                                  <Button
+                                    component="a"
+                                    target="_blank"
+                                    href={item.projectLink}
+                                    size="small"
+                                    variant="contained"
+                                    sx={{
+                                      color: "white",
+                                      bgcolor: "red",
+                                      marginY: 0,
+                                      display: { sm: "none", xs: "block" },
+                                    }}
+                                  >
+                                    VisitLink
+                                  </Button>
+                                  <Box
+                                    onClick={(e) => {
+                                      setRedmore(item), setRedopen(true);
+                                    }}
+                                    size="small"
+                                    variant="outline"
+                                    sx={{
+                                      text: "blue",
+                                      width: "100px",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      // marginY: 0,
+                                      display: {
+                                        sm: "none",
+                                        xs: "flex",
+                                      },
+                                    }}
+                                  >
+                                    <Box sx={{}}>RedMore</Box>{" "}
+                                    <KeyboardDoubleArrowRight />
+                                    {/* RedMore */}
+                                  </Box>
+                                </Box>
+
+                                {/* <Typography
                                                 variant="body2"
                                                 color="text.secondary"
                                                 sx={{ mb: 1 }}
@@ -899,12 +972,17 @@ const Home = () => {
                                                   : item.desc}
                                               </Typography> */}
 
-                              {/* Bottom buttons */}
-                            </CardContent>
-                          </Card>
-                        </Grid>
-                      ))}
-                  </Grid>
+                                {/* Bottom buttons */}
+                              </CardContent>
+                            </Card>
+                          </Grid>
+                        ))}
+                    </Grid>
+                  ) : (
+                    <Box sx={{ display: "flex", justifyContent: "center" }}>
+                      <CircularProgress color="secondary" />
+                    </Box>
+                  )}
                 </motion.div>
               </Grid>
             ) : // <></>

@@ -34,7 +34,7 @@ const App = () => {
       <Box>
         <Box
           sx={{
-            backgroundImage: `url(https://t4.ftcdn.net/jpg/02/17/89/41/240_F_217894165_H4jRalQ4eg9Kp8XUVGEa7XFDEPtTQ9PY.jpg)`,
+            // backgroundImage : `url(https://t4.ftcdn.net/jpg/02/17/89/41/240_F_217894165_H4jRalQ4eg9Kp8XUVGEa7XFDEPtTQ9PY.jpg)`,
             height: "100%",
             width: "100%",
             backgroundPosition: "top",
